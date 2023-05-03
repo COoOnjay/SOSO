@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SOSO - Social Sourcing</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+      /* CSS for the header box */
+      header {
+        background-color: #302e2e;
+        height: 100px;
+        width: 100%;
+      }
+      .header {
+  display: space;
+  color: #fff;
+  text-align: right;
+  align-items: center;
+}
+
+.header ul {
+  display: flex;
+  list-style: none;
+  margin-left: 20px;
+ color: #fff;
+ text-align: right;
+}
+
+.header ul li {
+  margin-right: 10px;
+  color: #fff;
+}
+    
+      header h1 {
+        color: white;
+        text-align: left;
+        line-height: 100px;
+        margin: 0;
+        margin-left: 40px;
+      }
+
+      /* CSS for the horizontal boxes */
+      .container {
+        display: flex;
+        justify-content: center;
+      }
+      .box {
+        flex: 1;
+        height: 800px;
+        margin: 0;
+        text-align: center;
+      
+      }
+      #box-1 {
+        background-color: #131212;
+        flex: .40;
+      
+      }
+      #box-2 {
+        background-color: #cae2f1;
+        flex: 6
+      }
+      #box-3 {
+        background-color: #4caf50;
+        flex: 1;
+      }
+      .box p {
+        font-size: 48px;
+        font-weight: bold;
+        margin-top: 100px;
+      }
+      #box-1 .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+      }
+      #box-1 .nav ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+      #box-1 .nav li {
+        margin: 0 10px;
+      }
+      #box-1 .nav a {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+     #box-1 .nav a span {
+        margin-left: 5px;
+      }
+      ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  
+}
+
+#box-1 .li {
+  float: left;
+  padding: 10px;
+  transition: all 0.2s ease-in-out;
+  
+}
+
+li:hover i {
+  transform: scale(1.2);
+}
+
+li:hover {
+  background-color: #070707;
+}
+
+i {
+  font-size: 40px;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+  height: 10vh;
+justify-content: center;
+text-align: center;
+align-items: center;
+padding-top: 25px;
+}
+
+.facebook {
+  background-color: #3b5998;
+  
+}
+
+.twitter {
+  background-color: #00aced;
+}
+
+.linkedin {
+  background-color: #007bb6;
+}
+
+.github {
+  background-color: #333;
+}
+.xing {
+  background-color: #6bdf7e;
+}
+
+      
+    </style>
+  </head>
+  <body>
+    <header>
+        <div id="logo">
+        <h1>SOSO</h1>
+     
+      <div class="header">
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div> 
+  </div>
+    </header>
+    
+    <div class="container">
+      <div class="box" id="box-1">
+        <nav>
+          <ul>
+            <li class="facebook"><a href="#"onclick="loadPage('facebook.html')"> <i class="fab fa-facebook-f"></i></a></li>
+            <li class="twitter"><a href="#"onclick="loadPage('twitter.html')"><i class="fab fa-twitter"></i></a></li>
+            <li class="linkedin"><a href="#"onclick="loadPage('linkedin.html')"><i class="fab fa-linkedin-in"></i></a></li>
+            <li class="github"><a href="#"onclick="loadPage('github.html')"><i class="fab fa-github"></i></a></li>
+            <li class="xing"><a href="#"onclick="loadPage('xing.html')"><i class="fab fa-xing"></i></a></li>
+          </ul>
+          
+         </nav>
+      </div>
+      <div class="box" id="box-2">  
+        
+      </div>
+      <div id="box-3" class="box" draggable="true" ondragend="saveText(event)">
+        
+      </div>
+    </div>
+    
+    <script>
+      function saveText(event) {
+        const text = document.getElementById('text').innerText;
+        // make a request to your server to save the text to the database
+        // using the fetch API or similar
+        fetch('/save-text', {
+          method: 'POST',
+          body: JSON.stringify({ text }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error))
+      }
+    </script>
+    </div>
+    <script>
+      // Function to load HTML pages into the content area
+      function loadPage(page) {
+        // Create a new XMLHttpRequest object
+        var xhttp = new XMLHttpRequest();
+        
+        // Define a function to execute when the response is ready
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            // Set the content of the #content div to the response text
+            document.getElementById("box-2").innerHTML = this.responseText;
+          }
+        };
+        
+        // Send a GET request for the specified page
+        xhttp.open("GET", page, true);
+        xhttp.send();
+      }
+    </script>
+  </body>
+</html>
+
+  
